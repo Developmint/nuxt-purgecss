@@ -1,0 +1,19 @@
+h1 {
+    color: red
+}
+
+.unused {
+    color: blue
+}
+
+.custom {
+    color: green
+}
+
+.whitelist {
+    color: black
+}
+
+.pattern-a {
+    color: red
+}
