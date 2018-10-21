@@ -6623,9 +6623,9 @@ number-is-nan@^1.0.0:
   resolved "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nuxt-edge@^2.3.0-25667110.ec55975:
+nuxt-edge@^2.3.0-25667751:
   version "2.3.0-25667751.f5530ad"
-  resolved "https://registry.npmjs.org/nuxt-edge/-/nuxt-edge-2.3.0-25667751.f5530ad.tgz#56edabf8613bd2c3cc0b10d1a82c313dbd153b8f"
+  resolved "https://registry.yarnpkg.com/nuxt-edge/-/nuxt-edge-2.3.0-25667751.f5530ad.tgz#56edabf8613bd2c3cc0b10d1a82c313dbd153b8f"
   integrity sha512-4rrMarHYB3Kv73YswZAP/BuBSxn+xjXeS7e8KV0TY+/VBpsiWXrS97LEHMTqM9VNGLn8yGHytTJ1ye+Iy3GSNg==
   dependencies:
     "@nuxt/builder-edge" "^2.3.0-25667751.f5530ad"
