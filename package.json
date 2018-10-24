@@ -22,9 +22,9 @@
   "scripts": {
     "dev": "nuxt build --config-file test/fixture/configs/default.js",
     "lint": "eslint lib test",
-    "test": "yarn run lint && jest",
+    "test": "yarn run lint && jest --detectOpenHandles",
     "release": "standard-version && git push --follow-tags && npm publish",
-    "commitlint": "commitlint -e $GIT_PARAMS",
+    "commitlint": "commitlint -E HUSKY_GIT_PARAMS",
     "coverage": "codecov"
   },
   "eslintIgnore": [
