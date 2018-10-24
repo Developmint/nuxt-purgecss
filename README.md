@@ -45,7 +45,7 @@ Before diving into the individual attributes, here are the default settings of t
 ```js
 {
   mode: MODES.webpack,
-  enabled: ({ isDev, isClient }) => (!isDev && isClient),
+  enabled: ({ isDev, isClient }) => (!isDev && isClient), // or `false` when in dev/debug mode
   paths: [
     'components/**/*.vue',
     'layouts/**/*.vue',
@@ -93,11 +93,11 @@ Defines the mode, PurgeCSS should be used in.
 #### enabled
 
 * Type: `Boolean` or `Function` (only for webpack mode, will receive the build.extend ctx)
-* Default: `({ isDev, isClient }) => (!isDev && isClient)` (Only activates in production mode)
+* Default: `({ isDev, isClient }) => (!isDev && isClient)` (only activates in production mode) or `false` in debug/dev mode
 
 Enables/Disables the module
 
-* If false, the module won't be activated at all
+* If it evaluates to false, the module won't be activated at all
 * If a function is given, it'll be properly evaluated in webpack mode (in postcss mode it'll be handled as true)
 
 

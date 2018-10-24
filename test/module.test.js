@@ -40,6 +40,13 @@ describe('nuxt-purgecss', () => {
       expect(testCSS).toMatch('.ymca')
     })
 
+    test('don\'t show webpack error message in dev', async () => {
+      nuxt = await setupNuxt(require('./fixture/configs/webpack/dev'))
+
+      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      expect(consolaMessages).not.toContain('Webpack mode only works with build.extractCSS set to *true*. Either extract your CSS or use \'postcss\' mode')
+    })
+
     test('globally disable module', async () => {
       nuxt = await setupNuxt(require('./fixture/configs/webpack/disabled'))
 
