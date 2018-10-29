@@ -5,6 +5,7 @@
 [![codecov](https://codecov.io/gh/Developmint/nuxt-purgecss/branch/master/graph/badge.svg)](https://codecov.io/gh/Developmint/nuxt-purgecss)
 [![Dependencies](https://david-dm.org/Developmint/nuxt-purgecss/status.svg?style=flat-square)](https://david-dm.org/Developmint/nuxt-purgecss)
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com)
+[![thanks](https://img.shields.io/badge/thanks-%E2%99%A5-ff69b4.svg)](https://thanks.lichter.io/)
 
 >
 
