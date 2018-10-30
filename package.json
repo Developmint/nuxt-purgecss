@@ -66,10 +66,10 @@
     "@nuxtjs/eslint-config": "^0.0.1",
     "babel-eslint": "^10.0.1",
     "codecov": "^3.1.0",
-    "eslint": "^5.7.0",
+    "eslint": "^5.8.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.25.1",
+    "eslint-plugin-jest": "^21.26.2",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
@@ -78,7 +78,7 @@
     "husky": "^1.1.2",
     "jest": "^23.6.0",
     "jsdom": "^13.0.0",
-    "nuxt-edge": "^2.3.0-25667110.ec55975",
+    "nuxt-edge": "^2.3.0-25680860",
     "standard-version": "^4.4.0"
   },
   "husky": {
