@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^1.1.0",
-    "consola": "^1.4.4",
+    "consola": "^1.4.5",
     "glob-all": "^3.1.0",
     "purgecss": "^1.1.0",
     "purgecss-webpack-plugin": "^1.3.1"
@@ -66,19 +66,19 @@
     "@nuxtjs/eslint-config": "^0.0.1",
     "babel-eslint": "^10.0.1",
     "codecov": "^3.1.0",
-    "eslint": "^5.8.0",
+    "eslint": "^5.9.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^22.0.0",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^5.0.0-beta.3",
+    "eslint-plugin-vue": "^5.0.0-beta.4",
     "get-port": "^4.0.0",
-    "husky": "^1.1.2",
+    "husky": "^1.1.4",
     "jest": "^23.6.0",
     "jsdom": "^13.0.0",
-    "nuxt-edge": "^2.3.0-25680860",
+    "nuxt-edge": "^2.3.0-25703792.bfb6d6a",
     "standard-version": "^4.4.0"
   },
   "husky": {
