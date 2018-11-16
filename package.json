@@ -78,7 +78,7 @@
     "husky": "^1.1.4",
     "jest": "^23.6.0",
     "jsdom": "^13.0.0",
-    "nuxt-edge": "^2.3.0-25703792.bfb6d6a",
+    "nuxt-edge": "^2.3.0-25706271.cca799c",
     "standard-version": "^4.4.0"
   },
   "husky": {
