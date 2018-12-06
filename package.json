@@ -58,7 +58,7 @@
     "consola": "^1.4.5",
     "glob-all": "^3.1.0",
     "purgecss": "^1.1.0",
-    "purgecss-webpack-plugin": "^1.3.1"
+    "purgecss-webpack-plugin": "^1.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
@@ -69,11 +69,11 @@
     "eslint": "^5.9.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^22.0.0",
+    "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^5.0.0-beta.4",
+    "eslint-plugin-vue": "^5.0.0",
     "get-port": "^4.0.0",
     "husky": "^1.2.0",
     "jest": "^23.6.0",
