@@ -8,7 +8,7 @@ module.exports = {
     resourceHints: false
   },
   dev: false,
-  modules: ['@@'],
+  modules: [['@@', { mode: 'postcss' }]],
   build: {
     quiet: false,
     optimization: {
@@ -22,7 +22,6 @@ module.exports = {
     }
   },
   purgeCSS: {
-    mode: 'postcss',
     paths: ['custom/**/*.vue'],
     styleExtensions: ['.css'],
     whitelist: ['whitelist'],
