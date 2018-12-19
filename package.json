@@ -20,7 +20,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "nuxt build --config-file test/fixture/configs/default.js",
+    "dev": "nuxt --config-file test/fixture/configs/postcss/default.js",
     "lint": "eslint lib test",
     "test": "yarn run lint && jest --detectOpenHandles",
     "release": "standard-version && git push --follow-tags && npm publish",
