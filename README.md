@@ -171,6 +171,39 @@ export default {
 }
 ```
 
+### Use custom extractors
+Only one extractor can be applied to each file extention.
+If you want to apply a custom extractor to the extensions that the default extractor already covers, you have to override the default extractor. This is only possible with the functional notation.
+
+```js
+//nuxt.config.js
+export default {
+  modules: [
+    'nuxt-purgecss',
+  ],
+
+  purgeCSS: {
+    extractors: () => [
+      {
+        extractor: class {
+          static extract(content) {
+            return content.match(/[A-z0-9-:\\/]+/g)
+          }
+        },
+        extensions: ['html', 'vue', 'js']
+      },
+      {
+        extractor: class {
+          static extract(content) {
+            return content.match(/[A-z0-9-\\/]+/g)
+          }
+        },
+        extensions: ['vue'] // This will not work, because the above extractor is applied to 'vue' already.
+      }
+    ]
+  }
+}
+```
 
 ## Development
 
