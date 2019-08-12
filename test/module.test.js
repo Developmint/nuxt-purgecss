@@ -38,6 +38,7 @@ describe('nuxt-purgecss', () => {
       const testCSS = await getTestCSS()
       expect(testCSS).not.toMatch('.abc')
       expect(testCSS).toMatch('.ymca')
+      expect(testCSS).toMatch('.bound')
     })
 
     test('don\'t show webpack error message in dev', async () => {
@@ -63,6 +64,7 @@ describe('nuxt-purgecss', () => {
       const testCSS = await getTestCSS()
       expect(testCSS).toMatch('.abc')
       expect(testCSS).toMatch('.ymca')
+      expect(testCSS).toMatch('.bound')
     })
 
     test('define custom options for css lookup (concatenating)', async () => {
@@ -81,6 +83,7 @@ describe('nuxt-purgecss', () => {
       const testCSS = await getTestCSS()
       expect(testCSS).not.toMatch('.abc')
       expect(testCSS).toMatch('.ymca')
+      expect(testCSS).toMatch('.bound')
     })
 
     test('define custom function options for css lookup (overriding)', async () => {
@@ -119,6 +122,7 @@ describe('nuxt-purgecss', () => {
       const testCSS = await getTestCSS('js')
       expect(testCSS).not.toMatch('.abc')
       expect(testCSS).toMatch('.ymca')
+      expect(testCSS).toMatch('.bound')
     })
 
     test('globally disable module', async () => {
@@ -137,6 +141,7 @@ describe('nuxt-purgecss', () => {
       const testCSS = await getTestCSS('js')
       expect(testCSS).toMatch('.abc')
       expect(testCSS).toMatch('.ymca')
+      expect(testCSS).toMatch('.bound')
     })
 
     test('define custom options for css lookup (concatenating)', async () => {
@@ -155,6 +160,7 @@ describe('nuxt-purgecss', () => {
       const testCSS = await getTestCSS('js')
       expect(testCSS).not.toMatch('.abc')
       expect(testCSS).toMatch('.ymca')
+      expect(testCSS).toMatch('.bound')
     })
 
     test('define custom function options for css lookup (overriding)', async () => {

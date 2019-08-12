@@ -1,6 +1,8 @@
 <template>
   <div class="ymca">
-    Test
+    <div :class="{ bound: true }">
+      Test
+    </div>
   </div>
 </template>
 

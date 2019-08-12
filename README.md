@@ -59,7 +59,7 @@ Before diving into the individual attributes, here are the default settings of t
     {
       extractor: class {
         static extract(content) {
-          return content.match(/[A-z0-9-:\\/]+/g)
+          return content.match(/[A-Za-z0-9-_/:]*[A-Za-z0-9-_/]+/g)
         }
       },
       extensions: ['html', 'vue', 'js']
