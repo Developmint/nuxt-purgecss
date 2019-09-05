@@ -17,3 +17,55 @@ h1 {
 .pattern-a {
     color: red
 }
+
+.v-enter {
+    color: pink
+}
+
+/* Default Vue Transitions */
+
+.v-enter-active {
+    color: violet
+}
+
+.v-enter-to {
+    color: yellow
+}
+
+.v-leave {
+    color: aqua
+}
+
+.v-leave-active {
+    color: magenta
+}
+
+.v-leave-to {
+    color: brown
+}
+
+/* Named Vue Transitions */
+
+.named-transition-enter {
+    color: pink
+}
+
+.named-transition-enter-active {
+    color: violet
+}
+
+.named-transition-enter-to {
+    color: yellow
+}
+
+.named-transition-leave {
+    color: aqua
+}
+
+.named-transition-leave-active {
+    color: magenta
+}
+
+.named-transition-leave-to {
+    color: brown
+}

@@ -100,6 +100,32 @@ describe('nuxt-purgecss', () => {
       expect(testCSS).not.toMatch('.abc')
       expect(testCSS).not.toMatch('.ymca')
     })
+
+    describe('vue transitions', () => {
+      test('does not purge vue default transitions', async () => {
+        nuxt = await setupNuxt(require('./fixture/configs/webpack/default'))
+
+        const globalCSS = await getGlobalCSS()
+        expect(globalCSS).toMatch('.v-enter')
+        expect(globalCSS).toMatch('.v-enter-active')
+        expect(globalCSS).toMatch('.v-enter-to')
+        expect(globalCSS).toMatch('.v-leave')
+        expect(globalCSS).toMatch('.v-leave-active')
+        expect(globalCSS).toMatch('.v-leave-to')
+      })
+
+      test('does not purge vue named transitions', async () => {
+        nuxt = await setupNuxt(require('./fixture/configs/webpack/default'))
+
+        const globalCSS = await getGlobalCSS()
+        expect(globalCSS).toMatch('.named-transition-enter')
+        expect(globalCSS).toMatch('.named-transition-enter-active')
+        expect(globalCSS).toMatch('.named-transition-enter-to')
+        expect(globalCSS).toMatch('.named-transition-leave')
+        expect(globalCSS).toMatch('.named-transition-leave-active')
+        expect(globalCSS).toMatch('.named-transition-leave-to')
+      })
+    })
   })
   describe('postcss', () => {
     test('purge css by default', async () => {
