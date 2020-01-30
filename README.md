@@ -11,6 +11,19 @@
 
 [📖 **Release Notes**](./CHANGELOG.md)
 
+## Release Note for purgecss 2
+The extractor is now a function that takes the content as an argument.
+```js
+class Extractor {
+    static extract(content) {}
+}
+```
+changes to
+```js
+function extractor(content) {}
+```
+
+
 ## Features
 
 * Remove unneeded CSS with ease
