@@ -70,10 +70,8 @@ Before diving into the individual attributes, here are the default settings of t
   whitelist: ['body', 'html', 'nuxt-progress'],
   extractors: [
     {
-      extractor: class {
-        static extract(content) {
-          return content.match(/[A-z0-9-:\\/]+/g)
-        }
+      extractor(content) {
+        return content.match(/[A-z0-9-:\\/]+/g)
       },
       extensions: ['html', 'vue', 'js']
     }
@@ -198,18 +196,14 @@ export default {
   purgeCSS: {
     extractors: () => [
       {
-        extractor: class {
-          static extract(content) {
-            return content.match(/[A-z0-9-:\\/]+/g)
-          }
+        extractor: (content) {
+          return content.match(/[A-z0-9-:\\/]+/g)
         },
         extensions: ['html', 'vue', 'js']
       },
       {
-        extractor: class {
-          static extract(content) {
-            return content.match(/[A-z0-9-\\/]+/g)
-          }
+        extractor(content) {
+          return content.match(/[A-z0-9-\\/]+/g)
         },
         extensions: ['vue'] // This will not work, because the above extractor is applied to 'vue' already.
       }
