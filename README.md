@@ -11,6 +11,19 @@
 
 [📖 **Release Notes**](./CHANGELOG.md)
 
+## Release Note for purgecss 2
+The extractor is now a function that takes the content as an argument.
+```js
+class Extractor {
+    static extract(content) {}
+}
+```
+changes to
+```js
+function extractor(content) {}
+```
+
+
 ## Features
 
 * Remove unneeded CSS with ease
@@ -57,10 +70,8 @@ Before diving into the individual attributes, here are the default settings of t
   whitelist: ['body', 'html', 'nuxt-progress'],
   extractors: [
     {
-      extractor: class {
-        static extract(content) {
-          return content.match(/[A-z0-9-:\\/]+/g)
-        }
+      extractor(content) {
+        return content.match(/[A-z0-9-:\\/]+/g)
       },
       extensions: ['html', 'vue', 'js']
     }
@@ -185,18 +196,14 @@ export default {
   purgeCSS: {
     extractors: () => [
       {
-        extractor: class {
-          static extract(content) {
-            return content.match(/[A-z0-9-:\\/]+/g)
-          }
+        extractor: (content) {
+          return content.match(/[A-z0-9-:\\/]+/g)
         },
         extensions: ['html', 'vue', 'js']
       },
       {
-        extractor: class {
-          static extract(content) {
-            return content.match(/[A-z0-9-\\/]+/g)
-          }
+        extractor(content) {
+          return content.match(/[A-z0-9-\\/]+/g)
         },
         extensions: ['vue'] // This will not work, because the above extractor is applied to 'vue' already.
       }
