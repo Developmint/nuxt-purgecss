@@ -196,7 +196,7 @@ export default {
   purgeCSS: {
     extractors: () => [
       {
-        extractor: (content) {
+        extractor(content) {
           return content.match(/[A-z0-9-:\\/]+/g)
         },
         extensions: ['html', 'vue', 'js']
