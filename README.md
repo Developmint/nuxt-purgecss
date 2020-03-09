@@ -71,7 +71,7 @@ Before diving into the individual attributes, here are the default settings of t
   extractors: [
     {
       extractor(content) {
-        return content.match(/[A-z0-9-:\\/]+/g)
+        return content.match(/[\w-.:/]+(?<!:)/g)
       },
       extensions: ['html', 'vue', 'js']
     }
