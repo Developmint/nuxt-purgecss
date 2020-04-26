@@ -19,5 +19,8 @@ module.exports = {
     filenames: {
       css: () => '[name].css'
     }
+  },
+  purgeCSS: {
+    mode: 'webpack'
   }
 }

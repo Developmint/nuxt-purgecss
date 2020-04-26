@@ -10,6 +10,7 @@ module.exports = {
   dev: false,
   modules: ['@@'],
   purgeCSS: {
+    mode: 'webpack',
     enabled: false
   },
   build: {
