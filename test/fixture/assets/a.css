@@ -1,71 +1,75 @@
 h1 {
-    color: red
+  color: red
 }
 
 .unused {
-    color: blue
+  color: blue
 }
 
 .custom {
-    color: green
+  color: green
 }
 
 .whitelist {
-    color: black
+  color: black
 }
 
 .pattern-a {
-    color: red
+  color: red
+}
+
+.nuxt-config-class {
+  color: lightblue
 }
 
 .v-enter {
-    color: pink
+  color: pink
 }
 
 /* Default Vue Transitions */
 
 .v-enter-active {
-    color: violet
+  color: violet
 }
 
 .v-enter-to {
-    color: yellow
+  color: yellow
 }
 
 .v-leave {
-    color: aqua
+  color: aqua
 }
 
 .v-leave-active {
-    color: magenta
+  color: magenta
 }
 
 .v-leave-to {
-    color: brown
+  color: brown
 }
 
 /* Named Vue Transitions */
 
 .named-transition-enter {
-    color: pink
+  color: pink
 }
 
 .named-transition-enter-active {
-    color: violet
+  color: violet
 }
 
 .named-transition-enter-to {
-    color: yellow
+  color: yellow
 }
 
 .named-transition-leave {
-    color: aqua
+  color: aqua
 }
 
 .named-transition-leave-active {
-    color: magenta
+  color: magenta
 }
 
 .named-transition-leave-to {
-    color: brown
+  color: brown
 }

@@ -144,7 +144,7 @@ describe('nuxt-purgecss', () => {
 
       const actualGlobalCSS = await getGlobalCSS('js')
       const expectedGlobalCSS = {
-        matching: ['h1{color:red}'],
+        matching: ['h1{color:red}', 'nuxt-config-class{'],
         notMatching: ['.unused', '.custom{', '.whitelist', '.pattern-a']
       }
 
