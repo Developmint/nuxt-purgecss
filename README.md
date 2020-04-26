@@ -181,6 +181,22 @@ export default {
 }
 ```
 
+## Migrating from v0.x
+
+1. Review the [**Release Notes**](./CHANGELOG.md) for all changes
+2. Bump to 1.x
+3. Ensure the plugin is running in the right mode
+    * If you used the default mode, you have to add `mode: 'webpack'` to your config.
+    * If you used the `postcss` mode, you can remove the `mode: 'postcss'` line from your config
+    * If you used this module only with the [Nuxt `tailwind` module](https://github.com/nuxt-community/tailwindcss-module), you don't need to do anything
+4. Read about the internal changes of [PurgeCSS 2](https://github.com/fullhuman/purgecss/releases)
+5. Update your extractor and change the syntax from a class to a function (see 4.)
+6. Unused styles from SFCs are now purged. If you don't want that, whitelist them.
+7. The regex for CSS classes changed. This should not be breaking in most cases.
+8. The whitelist now includes nuxt link classes (e.g. `nuxt-link-active`). If you whitelisted these before, you can remove them.
+9. The whitelist now includes move transition classes. If you whitelisted these before, you can remove them.
+10. Test on your staging server (or locally) before deploying!
+
 ## License
 
 [MIT License](./LICENSE)
