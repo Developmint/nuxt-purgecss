@@ -9,9 +9,6 @@ module.exports = {
   },
   dev: false,
   modules: ['@@'],
-  purgeCSS: {
-    mode: 'postcss'
-  },
   build: {
     quiet: false,
     optimization: {

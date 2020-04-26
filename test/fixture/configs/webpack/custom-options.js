@@ -23,6 +23,7 @@ module.exports = {
   },
 
   purgeCSS: {
+    mode: 'webpack',
     paths: ['custom/**/*.vue'],
     styleExtensions: ['.css'],
     whitelist: ['whitelist'],
