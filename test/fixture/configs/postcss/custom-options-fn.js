@@ -22,7 +22,6 @@ module.exports = {
     }
   },
   purgeCSS: {
-    mode: 'postcss',
     paths: () => ['custom/**/*.vue'],
     whitelist: () => ['whitelist'],
     whitelistPatterns: () => [/pattern/]

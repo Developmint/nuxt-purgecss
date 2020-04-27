@@ -1,28 +1,13 @@
 # Nuxt PurgeCSS - Drop superfluous CSS!
-[![npm (scoped with tag)](https://img.shields.io/npm/v/nuxt-purgecss/latest.svg?style=flat-square)](https://npmjs.com/package/nuxt-purgecss)
-[![npm](https://img.shields.io/npm/dt/nuxt-purgecss.svg?style=flat-square)](https://npmjs.com/package/nuxt-purgecss)
-[![Build Status](https://travis-ci.com/Developmint/nuxt-purgecss.svg?branch=master)](https://travis-ci.com/Developmint/nuxt-purgecss)
-[![codecov](https://codecov.io/gh/Developmint/nuxt-purgecss/branch/master/graph/badge.svg)](https://codecov.io/gh/Developmint/nuxt-purgecss)
-[![Dependencies](https://david-dm.org/Developmint/nuxt-purgecss/status.svg?style=flat-square)](https://david-dm.org/Developmint/nuxt-purgecss)
-[![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com)
+
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
+[![Github Actions CI][github-actions-ci-src]][github-actions-ci-href]
+[![Codecov][codecov-src]][codecov-href]
+[![License][license-src]][license-href]
 [![thanks](https://img.shields.io/badge/thanks-%E2%99%A5-ff69b4.svg)](https://thanks.lichter.io/)
 
->
-
 [📖 **Release Notes**](./CHANGELOG.md)
-
-## Release Note for purgecss 2
-The extractor is now a function that takes the content as an argument.
-```js
-class Extractor {
-    static extract(content) {}
-}
-```
-changes to
-```js
-function extractor(content) {}
-```
-
 
 ## Features
 
@@ -35,51 +20,39 @@ function extractor(content) {}
 
 ## Setup
 
-- Add `nuxt-purgecss` dependency using yarn or npm to your project
-- Add `nuxt-purgecss` to `modules` section of `nuxt.config.js`:
+1. Add `nuxt-purgecss` dependency to your project
+
+```bash
+yarn add --dev nuxt-purgecss # or npm install --save-dev nuxt-purgecss
+```
+
+2. Add `nuxt-purgecss` to the `buildModules` section of `nuxt.config.js`
 
 ```js
-{
-  modules: [
+export default {
+  buildModules: [
+    // Simple usage
     'nuxt-purgecss',
-  ],
 
-  purgeCSS: {
-   // your settings here
-  }
+    // With options
+    ['nuxt-purgecss', { /* module options */ }]
+  ]
 }
 ```
+
+:warning: If you are using Nuxt **< v2.9** you have to install the module as a `dependency` (No `--dev` or `--save-dev` flags) and use `modules` section in `nuxt.config.js` instead of `buildModules`.
+
 
 ## Options
 
 ### Defaults
 
-Before diving into the individual attributes, here are the default settings of the module:
+Before diving into the individual attributes, please have a look [at the default settings](https://github.com/Developmint/nuxt-purgecss/blob/master/lib/utils.js) of the module.
 
-```js
-{
-  mode: MODES.webpack,
-  enabled: ({ isDev, isClient }) => (!isDev && isClient), // or `false` when in dev/debug mode
-  paths: [
-    'components/**/*.vue',
-    'layouts/**/*.vue',
-    'pages/**/*.vue',
-    'plugins/**/*.js'
-  ],
-  styleExtensions: ['.css'],
-  whitelist: ['body', 'html', 'nuxt-progress'],
-  extractors: [
-    {
-      extractor(content) {
-        return content.match(/[\w-.:/]+(?<!:)/g)
-      },
-      extensions: ['html', 'vue', 'js']
-    }
-  ]
-}
-```
+The defaults will scan all your `.vue` or `.js` components in the common Nuxt folders, as well as checking your `nuxt.config.js` for used classes.
+Furthermore, typical classes (like these needed for transitions, the nuxt link ones or those set when using scoped styles) are whitelisted already.
 
-This settings should be a good foundation for a variety of projects.
+These settings should be a good foundation for a variety of projects.
 
 ### Merging defaults
 
@@ -94,8 +67,8 @@ the defaults are quite sensible. If you don't want to have the defaults include,
 
 #### mode
 
-* Type: `String` (webpack or postcss)
-* Default: `webpack`
+* Type: `String` ('webpack' or 'postcss')
+* Default: `postcss`
 
 Defines the mode, PurgeCSS should be used in.
 
@@ -104,14 +77,10 @@ Defines the mode, PurgeCSS should be used in.
 
 #### enabled
 
-* Type: `Boolean` or `Function` (only for webpack mode, will receive the build.extend ctx)
-* Default: `({ isDev, isClient }) => (!isDev && isClient)` (only activates in production mode) or `false` in debug/dev mode
+* Type: `Boolean`
+* Default: `options.dev === false` (Disabled during `nuxt dev`, enabled otherwise)
 
 Enables/Disables the module
-
-* If it evaluates to false, the module won't be activated at all
-* If a function is given, it'll be properly evaluated in webpack mode (in postcss mode it'll be handled as true)
-
 
 #### PurgeCSS options
 
@@ -212,14 +181,41 @@ export default {
 }
 ```
 
-## Development
+## Migrating from v0.x
 
-- Clone this repository
-- Install dependencies using `yarn install` or `npm install`
-- Start development server using `npm run dev`
+1. Review the [**Release Notes**](./CHANGELOG.md) for all changes
+2. Bump to 1.x
+3. Ensure the plugin is running in the right mode
+    * If you used the default mode, you have to add `mode: 'webpack'` to your config.
+    * If you used the `postcss` mode, you can remove the `mode: 'postcss'` line from your config
+    * If you used this module only with the [Nuxt `tailwind` module](https://github.com/nuxt-community/tailwindcss-module), you don't need to do anything
+4. Read about the internal changes of [PurgeCSS 2](https://github.com/fullhuman/purgecss/releases)
+5. Update your extractor and change the syntax from a class to a function (see 4.)
+6. Unused styles from SFCs are now purged. If you don't want that, whitelist them.
+7. The regex for CSS classes changed. This should not be breaking in most cases.
+8. The whitelist now includes nuxt link classes (e.g. `nuxt-link-active`). If you whitelisted these before, you can remove them.
+9. The whitelist now includes move transition classes. If you whitelisted these before, you can remove them.
+10. Test on your staging server (or locally) before deploying!
 
 ## License
 
 [MIT License](./LICENSE)
 
 Copyright (c) Alexander Lichter
+
+<!-- Badges -->
+[npm-version-src]: https://img.shields.io/npm/v/nuxt-purgecss/latest.svg
+[npm-version-href]: https://npmjs.com/package/nuxt-purgecss
+
+[npm-downloads-src]: https://img.shields.io/npm/dt/nuxt-purgecss.svg
+[npm-downloads-href]: https://npmjs.com/package/nuxt-purgecss
+
+[github-actions-ci-src]: https://github.com/Developmint/nuxt-purgecss/workflows/ci/badge.svg
+[github-actions-ci-href]: https://github.com/Developmint/nuxt-purgecss/actions?query=workflow%3Aci
+
+[codecov-src]: https://img.shields.io/codecov/c/github/Developmint/nuxt-purgecss.svg
+[codecov-href]: https://codecov.io/gh/Developmint/nuxt-purgecss
+
+[license-src]: https://img.shields.io/npm/l/nuxt-purgecss.svg
+[license-href]: https://npmjs.com/package/nuxt-purgecss
+

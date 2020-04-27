@@ -22,7 +22,6 @@ module.exports = {
     }
   },
   purgeCSS: {
-    mode: 'postcss',
     enabled: false
   }
 }

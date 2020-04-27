@@ -5,15 +5,13 @@ const { promisify } = require('util')
 const readFile = promisify(fsReadFile)
 
 const consola = require('consola')
-const getPort = require('get-port')
-const { Nuxt, Builder } = require('nuxt-edge')
+const { setup } = require('@nuxtjs/module-test-utils')
 
 jest.setTimeout(60 * 1000)
 
-let nuxt, port
-
 describe('nuxt-purgecss', () => {
   let log
+  let nuxt
 
   beforeEach(() => {
     log = jest.fn()
@@ -22,183 +20,204 @@ describe('nuxt-purgecss', () => {
 
   describe('webpack', () => {
     test('extract and purge css by default', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/webpack/default'))
+      ({ nuxt } = await setup(require('./fixture/configs/webpack/default')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).toContain('Module initialized in webpack mode')
 
-      const globalCSS = await getGlobalCSS()
-      expect(globalCSS).not.toMatch('.unused')
-      expect(globalCSS).not.toMatch('.custom')
-      expect(globalCSS).not.toMatch('.whitelist')
-      expect(globalCSS).not.toMatch('.pattern-a')
+      const actualGlobalCSS = await getGlobalCSS()
+      const expectedGlobalCSS = {
+        matching: ['h1{color:red}'],
+        notMatching: ['.unused', '.custom', '.whitelist', '.pattern-a']
+      }
 
-      expect(globalCSS).toMatch('h1{color:red}')
+      checkCSS(expectedGlobalCSS, actualGlobalCSS)
 
-      const testCSS = await getTestCSS()
-      expect(testCSS).not.toMatch('.abc')
-      expect(testCSS).toMatch('.ymca')
+      const actualTestCSS = await getTestCSS()
+      const expectedTestCSS = {
+        matching: ['.ymca'],
+        notMatching: ['.abc']
+      }
+
+      checkCSS(expectedTestCSS, actualTestCSS)
     })
 
     test('don\'t show webpack error message in dev', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/webpack/dev'))
+      ({ nuxt } = await setup(require('./fixture/configs/webpack/dev')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).not.toContain('Webpack mode only works with build.extractCSS set to *true*. Either extract your CSS or use \'postcss\' mode')
     })
 
     test('globally disable module', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/webpack/disabled'))
+      ({ nuxt } = await setup(require('./fixture/configs/webpack/disabled')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).toContain('Module is not enabled')
 
       const globalCSS = await getGlobalCSS()
-      expect(globalCSS).toMatch('.unused')
-      expect(globalCSS).toMatch('h1{color:red}')
-      expect(globalCSS).toMatch('.custom')
-      expect(globalCSS).toMatch('.whitelist')
-      expect(globalCSS).toMatch('.pattern-a')
+      const expectedGlobalCSS = {
+        matching: ['.unused', '.custom', '.whitelist', '.pattern-a']
+      }
+
+      checkCSS(expectedGlobalCSS, globalCSS)
 
       const testCSS = await getTestCSS()
-      expect(testCSS).toMatch('.abc')
-      expect(testCSS).toMatch('.ymca')
+      const expectedTestCSS = {
+        matching: ['.abc', '.ymca']
+      }
+      checkCSS(expectedTestCSS, testCSS)
     })
 
     test('define custom options for css lookup (concatenating)', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/webpack/custom-options'))
+      ({ nuxt } = await setup(require('./fixture/configs/webpack/custom-options')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).toContain('Module initialized in webpack mode')
 
       const globalCSS = await getGlobalCSS()
-      expect(globalCSS).not.toMatch('.unused')
-      expect(globalCSS).toMatch('.custom')
-      expect(globalCSS).toMatch('.whitelist')
-      expect(globalCSS).toMatch('.pattern-a')
-      expect(globalCSS).toMatch('h1{color:red}')
+      const expectedGlobalCSS = {
+        notMatching: ['.unused'],
+        matching: ['h1{color:red}', '.custom', '.whitelist', '.pattern-a']
+      }
+
+      checkCSS(expectedGlobalCSS, globalCSS)
 
       const testCSS = await getTestCSS()
-      expect(testCSS).not.toMatch('.abc')
-      expect(testCSS).toMatch('.ymca')
+      const expectedTestCSS = {
+        notMatching: ['.abc'],
+        matching: ['.ymca']
+      }
+      checkCSS(expectedTestCSS, testCSS)
     })
 
     test('define custom function options for css lookup (overriding)', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/webpack/custom-options-fn'))
+      ({ nuxt } = await setup(require('./fixture/configs/webpack/custom-options-fn')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).toContain('Module initialized in webpack mode')
 
       const globalCSS = await getGlobalCSS()
-      expect(globalCSS).not.toMatch('.unused')
-      expect(globalCSS).toMatch('.custom')
-      expect(globalCSS).toMatch('.whitelist')
-      expect(globalCSS).toMatch('.pattern-a')
-      expect(globalCSS).not.toMatch('h1{color:red}')
+      const expectedGlobalCSS = {
+        notMatching: ['.unused', 'h1{color:red}'],
+        matching: ['.custom', '.whitelist', '.pattern-a']
+      }
+
+      checkCSS(expectedGlobalCSS, globalCSS)
 
       const testCSS = await getTestCSS()
-      expect(testCSS).not.toMatch('.abc')
-      expect(testCSS).not.toMatch('.ymca')
+      const expectedTestCSS = {
+        notMatching: ['.abc', '.ymca']
+      }
+      checkCSS(expectedTestCSS, testCSS)
     })
 
     describe('vue transitions', () => {
       test('does not purge vue default transitions', async () => {
-        nuxt = await setupNuxt(require('./fixture/configs/webpack/default'))
+        ({ nuxt } = await setup(require('./fixture/configs/webpack/default')))
 
         const globalCSS = await getGlobalCSS()
-        expect(globalCSS).toMatch('.v-enter')
-        expect(globalCSS).toMatch('.v-enter-active')
-        expect(globalCSS).toMatch('.v-enter-to')
-        expect(globalCSS).toMatch('.v-leave')
-        expect(globalCSS).toMatch('.v-leave-active')
-        expect(globalCSS).toMatch('.v-leave-to')
+        const expectedGlobalCSS = {
+          matching: ['.v-enter', '.v-enter-active', '.v-enter-to', '.v-leave', '.v-leave-active', '.v-leave-to']
+        }
+
+        checkCSS(expectedGlobalCSS, globalCSS)
       })
 
       test('does not purge vue named transitions', async () => {
-        nuxt = await setupNuxt(require('./fixture/configs/webpack/default'))
-
+        ({ nuxt } = await setup(require('./fixture/configs/webpack/default')))
         const globalCSS = await getGlobalCSS()
-        expect(globalCSS).toMatch('.named-transition-enter')
-        expect(globalCSS).toMatch('.named-transition-enter-active')
-        expect(globalCSS).toMatch('.named-transition-enter-to')
-        expect(globalCSS).toMatch('.named-transition-leave')
-        expect(globalCSS).toMatch('.named-transition-leave-active')
-        expect(globalCSS).toMatch('.named-transition-leave-to')
+        const expectedGlobalCSS = {
+          matching: ['.named-transition-enter', '.named-transition-enter-active', '.named-transition-enter-to', '.named-transition-leave', '.named-transition-leave-active', '.named-transition-leave-to']
+        }
+
+        checkCSS(expectedGlobalCSS, globalCSS)
       })
     })
   })
   describe('postcss', () => {
     test('purge css by default', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/postcss/default'))
+      ({ nuxt } = await setup(require('./fixture/configs/postcss/default')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).toContain('Module initialized in postcss mode')
 
-      const globalCSS = await getGlobalCSS('js')
-      expect(globalCSS).not.toMatch('.unused')
-      expect(globalCSS).not.toMatch('.custom')
-      expect(globalCSS).not.toMatch('.whitelist')
-      expect(globalCSS).not.toMatch('.pattern-a')
+      const actualGlobalCSS = await getGlobalCSS('js')
+      const expectedGlobalCSS = {
+        matching: ['h1{color:red}', 'nuxt-config-class{'],
+        notMatching: ['.unused', '.custom{', '.whitelist', '.pattern-a']
+      }
 
-      expect(globalCSS).toMatch('h1{color:red}')
+      checkCSS(expectedGlobalCSS, actualGlobalCSS)
 
-      const testCSS = await getTestCSS('js')
-      expect(testCSS).not.toMatch('.abc')
-      expect(testCSS).toMatch('.ymca')
+      const actualTestCSS = await getTestCSS('js')
+      const expectedTestCSS = {
+        matching: ['.ymca', '.bound{'],
+        notMatching: ['.abc', '.inline-unused']
+      }
+      checkCSS(expectedTestCSS, actualTestCSS)
     })
 
     test('globally disable module', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/postcss/disabled'))
+      ({ nuxt } = await setup(require('./fixture/configs/postcss/disabled')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).toContain('Module is not enabled')
 
       const globalCSS = await getGlobalCSS('js')
-      expect(globalCSS).toMatch('.unused')
-      expect(globalCSS).toMatch('h1{color:red}')
-      expect(globalCSS).toMatch('.custom')
-      expect(globalCSS).toMatch('.whitelist')
-      expect(globalCSS).toMatch('.pattern-a')
+      const expectedGlobalCSS = {
+        matching: ['.unused', 'h1{color:red}', '.custom{', '.whitelist', '.pattern-a']
+      }
+
+      checkCSS(expectedGlobalCSS, globalCSS)
 
       const testCSS = await getTestCSS('js')
-      expect(testCSS).toMatch('.abc')
-      expect(testCSS).toMatch('.ymca')
+      const expectedTestCSS = {
+        matching: ['.abc', '.ymca']
+      }
+      checkCSS(expectedTestCSS, testCSS)
     })
 
     test('define custom options for css lookup (concatenating)', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/postcss/custom-options'))
+      ({ nuxt } = await setup(require('./fixture/configs/postcss/custom-options')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).toContain('Module initialized in postcss mode')
 
       const globalCSS = await getGlobalCSS('js')
-      expect(globalCSS).not.toMatch('.unused')
-      expect(globalCSS).toMatch('.custom')
-      expect(globalCSS).toMatch('.whitelist')
-      expect(globalCSS).toMatch('.pattern-a')
-      expect(globalCSS).toMatch('h1{color:red}')
+      const expectedGlobalCSS = {
+        matching: ['h1{color:red}', '.custom{', '.whitelist', '.pattern-a'],
+        notMatching: ['unused']
+      }
+
+      checkCSS(expectedGlobalCSS, globalCSS)
 
       const testCSS = await getTestCSS('js')
-      expect(testCSS).not.toMatch('.abc')
-      expect(testCSS).toMatch('.ymca')
+      const expectedTestCSS = {
+        matching: ['.ymca'],
+        notMatching: ['.abc']
+      }
+      checkCSS(expectedTestCSS, testCSS)
     })
 
     test('define custom function options for css lookup (overriding)', async () => {
-      nuxt = await setupNuxt(require('./fixture/configs/postcss/custom-options-fn'))
+      ({ nuxt } = await setup(require('./fixture/configs/postcss/custom-options-fn')))
 
-      const consolaMessages = log.mock.calls.map(c => c[0].message)
+      const consolaMessages = getConsolaMessages(log)
       expect(consolaMessages).toContain('Module initialized in postcss mode')
 
       const globalCSS = await getGlobalCSS('js')
-      expect(globalCSS).not.toMatch('.unused')
-      expect(globalCSS).toMatch('.custom')
-      expect(globalCSS).toMatch('.whitelist')
-      expect(globalCSS).toMatch('.pattern-a')
-      expect(globalCSS).not.toMatch('h1{color:red}')
+      const expectedGlobalCSS = {
+        notMatching: ['.unused', 'h1{color:red}'],
+        matching: ['.custom{', '.whitelist', '.pattern-a']
+      }
+      checkCSS(expectedGlobalCSS, globalCSS)
 
       const testCSS = await getTestCSS('js')
-      expect(testCSS).not.toMatch('.abc')
-      expect(testCSS).not.toMatch('.ymca')
+      const expectedTestCSS = {
+        notMatching: ['.abc', '.ymca']
+      }
+      checkCSS(expectedTestCSS, testCSS)
     })
   })
 
@@ -212,16 +231,21 @@ describe('nuxt-purgecss', () => {
 const PATH_PREFIX = '../.nuxt/dist/client/'
 
 const getGlobalCSS = (extension = 'css') => getFileContent(resolve(__dirname, `${PATH_PREFIX}app.${extension}`))
-const getTestCSS = (extension = 'css') => getFileContent(resolve(__dirname, /^win/.test(process.platform)
-  ? `${PATH_PREFIX}pages_index.${extension}` : `${PATH_PREFIX}pages/index.${extension}`))
+const getTestCSS = (extension = 'css') => getFileContent(resolve(__dirname,
+  process.platform.startsWith('win')
+    ? `${PATH_PREFIX}pages_index.${extension}`
+    : `${PATH_PREFIX}pages/index.${extension}`)
+)
+
+const checkCSS = (expected, actual) => {
+  if (expected.notMatching) {
+    expected.notMatching.forEach(str => expect(actual).not.toMatch(str))
+  }
+  if (expected.matching) {
+    expected.matching.forEach(str => expect(actual).toMatch(str))
+  }
+}
 
 const getFileContent = path => readFile(path, 'utf-8')
 
-const setupNuxt = async (config) => {
-  const nuxt = new Nuxt(config)
-  await new Builder(nuxt).build()
-  port = await getPort()
-  await nuxt.listen(port)
-
-  return nuxt
-}
+const getConsolaMessages = log => log.mock.calls.map(([res]) => res.message)
