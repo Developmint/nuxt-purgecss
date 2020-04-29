@@ -35,7 +35,7 @@ export default {
     'nuxt-purgecss',
 
     // With options
-    ['nuxt-purgecss', { /* module options */ }]
+    ['nuxt-purgecss', { /* module options */ }],
   ]
 }
 ```
@@ -97,7 +97,7 @@ This applies to **both modes**, not only to `webpack mode`.
 ```js
 //nuxt.config.js
 export default {
-  modules: [
+  buildModules: [
     'nuxt-purgecss',
   ]
 }
@@ -109,12 +109,12 @@ export default {
 ```js
 //nuxt.config.js
 export default {
-  modules: [
+  buildModules: [
     'nuxt-purgecss',
   ],
 
   purgeCSS: {
-   whitelist: () => ['only-this-class']
+   whitelist: () => ['only-this-class'],
   }
 }
 ```
@@ -125,12 +125,12 @@ export default {
 ```js
 //nuxt.config.js
 export default {
-  modules: [
+  buildModules: [
     'nuxt-purgecss',
   ],
 
   purgeCSS: {
-   whitelist: ['defaults-and-this-class']
+   whitelist: ['defaults-and-this-class'],
   }
 }
 ```
@@ -141,12 +141,12 @@ export default {
 ```js
 //nuxt.config.js
 export default {
-  modules: [
+  buildModules: [
     'nuxt-purgecss',
   ],
 
   purgeCSS: {
-   whitelist: (defaultWhitelst) => defaultWhitelst.slice(1)
+   whitelist: (defaultWhitelst) => defaultWhitelst.slice(1),
   }
 }
 ```
@@ -158,7 +158,7 @@ If you want to apply a custom extractor to the extensions that the default extra
 ```js
 //nuxt.config.js
 export default {
-  modules: [
+  buildModules: [
     'nuxt-purgecss',
   ],
 
