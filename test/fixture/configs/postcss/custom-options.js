@@ -8,7 +8,9 @@ module.exports = {
     resourceHints: false
   },
   dev: false,
-  modules: [['@@', { mode: 'postcss' }]],
+  buildModules: [
+    [require('../../../../'), { mode: 'postcss' }]
+  ],
   build: {
     quiet: false,
     optimization: {

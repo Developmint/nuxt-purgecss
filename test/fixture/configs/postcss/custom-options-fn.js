@@ -8,7 +8,9 @@ module.exports = {
     resourceHints: false
   },
   dev: false,
-  modules: ['@@'],
+  buildModules: [
+    { handler: require('../../../../') }
+  ],
   build: {
     quiet: false,
     optimization: {

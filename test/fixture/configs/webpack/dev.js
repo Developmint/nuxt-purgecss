@@ -7,7 +7,9 @@ module.exports = {
   render: {
     resourceHints: false
   },
-  modules: ['@@'],
+  buildModules: [
+    { handler: require('../../../../') }
+  ],
   build: {
     quiet: false,
     extractCSS: true,
