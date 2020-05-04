@@ -4,26 +4,24 @@ const { promisify } = require('util')
 
 const readFile = promisify(fsReadFile)
 
-const consola = require('consola')
 const { setup } = require('@nuxtjs/module-test-utils')
+const logger = require('../lib/logger')
 
+logger.mockTypes(() => jest.fn())
 jest.setTimeout(60 * 1000)
 
 describe('nuxt-purgecss', () => {
-  let log
   let nuxt
 
   beforeEach(() => {
-    log = jest.fn()
-    consola.clear().add({ log })
+    logger.clear()
   })
 
   describe('webpack', () => {
     test('extract and purge css by default', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/webpack/default')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).toContain('Module initialized in webpack mode')
+      expect(logger.success).toHaveBeenCalledWith('Module initialized in webpack mode')
 
       const actualGlobalCSS = await getGlobalCSS()
       const expectedGlobalCSS = {
@@ -45,15 +43,13 @@ describe('nuxt-purgecss', () => {
     test('don\'t show webpack error message in dev', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/webpack/dev')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).not.toContain('Webpack mode only works with build.extractCSS set to *true*. Either extract your CSS or use \'postcss\' mode')
+      expect(logger.error).not.toContain('Webpack mode only works with build.extractCSS set to *true*. Either extract your CSS or use \'postcss\' mode')
     })
 
     test('globally disable module', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/webpack/disabled')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).toContain('Module is not enabled')
+      expect(logger.info).toHaveBeenCalledWith('Module is not enabled')
 
       const globalCSS = await getGlobalCSS()
       const expectedGlobalCSS = {
@@ -72,8 +68,7 @@ describe('nuxt-purgecss', () => {
     test('define custom options for css lookup (concatenating)', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/webpack/custom-options')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).toContain('Module initialized in webpack mode')
+      expect(logger.success).toHaveBeenCalledWith('Module initialized in webpack mode')
 
       const globalCSS = await getGlobalCSS()
       const expectedGlobalCSS = {
@@ -94,8 +89,7 @@ describe('nuxt-purgecss', () => {
     test('define custom function options for css lookup (overriding)', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/webpack/custom-options-fn')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).toContain('Module initialized in webpack mode')
+      expect(logger.success).toHaveBeenCalledWith('Module initialized in webpack mode')
 
       const globalCSS = await getGlobalCSS()
       const expectedGlobalCSS = {
@@ -139,8 +133,7 @@ describe('nuxt-purgecss', () => {
     test('purge css by default', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/postcss/default')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).toContain('Module initialized in postcss mode')
+      expect(logger.success).toHaveBeenCalledWith('Module initialized in postcss mode')
 
       const actualGlobalCSS = await getGlobalCSS('js')
       const expectedGlobalCSS = {
@@ -161,8 +154,7 @@ describe('nuxt-purgecss', () => {
     test('globally disable module', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/postcss/disabled')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).toContain('Module is not enabled')
+      expect(logger.info).toHaveBeenCalledWith('Module is not enabled')
 
       const globalCSS = await getGlobalCSS('js')
       const expectedGlobalCSS = {
@@ -181,8 +173,7 @@ describe('nuxt-purgecss', () => {
     test('define custom options for css lookup (concatenating)', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/postcss/custom-options')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).toContain('Module initialized in postcss mode')
+      expect(logger.success).toHaveBeenCalledWith('Module initialized in postcss mode')
 
       const globalCSS = await getGlobalCSS('js')
       const expectedGlobalCSS = {
@@ -203,8 +194,7 @@ describe('nuxt-purgecss', () => {
     test('define custom function options for css lookup (overriding)', async () => {
       ({ nuxt } = await setup(require('./fixture/configs/postcss/custom-options-fn')))
 
-      const consolaMessages = getConsolaMessages(log)
-      expect(consolaMessages).toContain('Module initialized in postcss mode')
+      expect(logger.success).toHaveBeenCalledWith('Module initialized in postcss mode')
 
       const globalCSS = await getGlobalCSS('js')
       const expectedGlobalCSS = {
@@ -247,5 +237,3 @@ const checkCSS = (expected, actual) => {
 }
 
 const getFileContent = path => readFile(path, 'utf-8')
-
-const getConsolaMessages = log => log.mock.calls.map(([res]) => res.message)

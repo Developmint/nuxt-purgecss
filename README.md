@@ -42,7 +42,6 @@ export default {
 
 :warning: If you are using Nuxt **< v2.9** you have to install the module as a `dependency` (No `--dev` or `--save-dev` flags) and use `modules` section in `nuxt.config.js` instead of `buildModules`.
 
-
 ## Options
 
 ### Defaults
@@ -105,7 +104,6 @@ export default {
 
 ### Override a default value
 
-
 ```js
 //nuxt.config.js
 export default {
@@ -120,7 +118,6 @@ export default {
 ```
 
 ### Append a value to the defaults
-
 
 ```js
 //nuxt.config.js
@@ -137,7 +134,6 @@ export default {
 
 ### Override a default value
 
-
 ```js
 //nuxt.config.js
 export default {
@@ -152,6 +148,7 @@ export default {
 ```
 
 ### Use custom extractors
+
 Only one extractor can be applied to each file extention.
 If you want to apply a custom extractor to the extensions that the default extractor already covers, you have to override the default extractor. This is only possible with the functional notation.
 
@@ -218,4 +215,3 @@ Copyright (c) Alexander Lichter
 
 [license-src]: https://img.shields.io/npm/l/nuxt-purgecss.svg
 [license-href]: https://npmjs.com/package/nuxt-purgecss
-

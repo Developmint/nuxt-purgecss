@@ -8,7 +8,9 @@ module.exports = {
     resourceHints: false
   },
   dev: false,
-  modules: ['@@'],
+  buildModules: [
+    { handler: require('../../../../') }
+  ],
   purgeCSS: {
     mode: 'webpack',
     enabled: false
