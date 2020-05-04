@@ -2,32 +2,6 @@
   "name": "nuxt-purgecss",
   "version": "1.0.0",
   "description": "Drop superfluous CSS! A neat PurgeCSS wrapper for Nuxt.js",
-  "license": "MIT",
-  "contributors": [
-    {
-      "name": "Alexander Lichter <npm@lichter.io>"
-    }
-  ],
-  "main": "lib/module.js",
-  "repository": {
-    "mode": "git",
-    "url": "git+https://github.com/Developmint/nuxt-purgecss"
-  },
-  "bugs": {
-    "url": "https://github.com/Developmint/nuxt-purgecss/issues"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "dev": "nuxt --config-file test/fixture/configs/postcss/default.js",
-    "lint": "eslint --ext .js,.vue .",
-    "release": "yarn test && standard-version && git push --follow-tags && npm publish",
-    "test": "yarn lint && jest"
-  },
-  "files": [
-    "lib"
-  ],
   "keywords": [
     "nuxtjs",
     "nuxt",
@@ -35,18 +9,22 @@
     "purgecss",
     "css"
   ],
-  "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=5.0.0"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "collectCoverage": true,
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/fixture"
-    ],
-    "forceExit": true
+  "repository": "Developmint/nuxt-purgecss",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Alexander Lichter <npm@lichter.io>"
+    }
+  ],
+  "main": "lib/module.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "dev": "nuxt --config-file test/fixture/configs/postcss/default.js",
+    "lint": "eslint --ext .js,.vue .",
+    "release": "yarn test && standard-version && git push --follow-tags && npm publish",
+    "test": "yarn lint && jest"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.0.5",
@@ -63,14 +41,10 @@
     "eslint": "latest",
     "husky": "latest",
     "jest": "latest",
-    "jsdom": "latest",
     "nuxt-edge": "latest",
     "standard-version": "latest"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn run lint",
-      "commit-msg": "yarn run commitlint"
-    }
+  "publishConfig": {
+    "access": "public"
   }
 }
