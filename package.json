@@ -27,11 +27,11 @@
     "test": "yarn lint && jest"
   },
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^2.0.5",
-    "consola": "^1.4.5",
-    "glob-all": "^3.1.0",
-    "purgecss": "^2.0.5",
-    "purgecss-webpack-plugin": "^2.0.5"
+    "@fullhuman/postcss-purgecss": "^2.1.2",
+    "consola": "^2.11.3",
+    "glob-all": "^3.2.1",
+    "purgecss": "^2.1.2",
+    "purgecss-webpack-plugin": "^2.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
