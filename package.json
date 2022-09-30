@@ -58,7 +58,7 @@
     "lint-staged": "13.0.3",
     "nuxt": "npm:nuxt3@3.0.0-rc.11-27722816.abd0feb",
     "release-it": "15.4.2",
-    "vitest": "^0.23.4"
+    "vitest": "^0.21.1"
   },
   "resolutions": {
     "nuxt-purgecss": "link:./"

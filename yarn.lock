@@ -7370,17 +7370,12 @@ tiny-invariant@^1.1.0:
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.1.tgz#8560808c916ef02ecfd55e66090df23a4b7aa642"
   integrity sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==
 
-tinybench@^2.1.5:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/tinybench/-/tinybench-2.2.1.tgz#592e2da80e0de62cc5c9454335ac7f132b335b6c"
-  integrity sha512-VxB1P8DUhpCC1j2WtKgFYpv3SwU7vtnfmG29cK7hXcqyD7lLiq6SYCVpDceoAT99mvTN+V8Ay4OdtZQbB72+Sw==
+tinypool@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/tinypool/-/tinypool-0.2.4.tgz#4d2598c4689d1a2ce267ddf3360a9c6b3925a20c"
+  integrity sha512-Vs3rhkUH6Qq1t5bqtb816oT+HeJTXfwt2cbPH17sWHIYKTotQIFPk3tf2fgqRrVyMDVOc1EnPgzIxfIulXVzwQ==
 
-tinypool@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/tinypool/-/tinypool-0.3.0.tgz#c405d8b743509fc28ea4ca358433190be654f819"
-  integrity sha512-NX5KeqHOBZU6Bc0xj9Vr5Szbb1j8tUHIeD18s41aDJaPeC5QTdEhK0SpdpUrZlj2nv5cctNcSjaKNanXlfcVEQ==
-
-tinyspy@^1.0.2:
+tinyspy@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/tinyspy/-/tinyspy-1.0.2.tgz#6da0b3918bfd56170fb3cd3a2b5ef832ee1dff0d"
   integrity sha512-bSGlgwLBYf7PnUsQ6WOc6SJ3pGOcd+d8AA6EUnLDDM0kWEstC1JIlSZA3UNliDXhd9ABoS7hiRBDCu+XP/sf1Q==
@@ -7784,10 +7779,10 @@ vite-plugin-checker@^0.5.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitest@^0.23.4:
-  version "0.23.4"
-  resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.23.4.tgz#7ebea620f203f4df09a27ca17819dc9da61f88ef"
-  integrity sha512-iukBNWqQAv8EKDBUNntspLp9SfpaVFbmzmM0sNcnTxASQZMzRw3PsM6DMlsHiI+I6GeO5/sYDg3ecpC+SNFLrQ==
+vitest@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.21.1.tgz#b4f5b901c9a23a3aaec76d3404f3072821d93d00"
+  integrity sha512-WBIxuFmIDPuK47GO6Lu9eNeRMqHj/FWL3dk73OHH3eyPPWPiu+UB3QHLkLK2PEggCqJW4FaWoWg8R68S7p9+9Q==
   dependencies:
     "@types/chai" "^4.3.3"
     "@types/chai-subset" "^1.3.3"
@@ -7795,10 +7790,8 @@ vitest@^0.23.4:
     chai "^4.3.6"
     debug "^4.3.4"
     local-pkg "^0.4.2"
-    strip-literal "^0.4.1"
-    tinybench "^2.1.5"
-    tinypool "^0.3.0"
-    tinyspy "^1.0.2"
+    tinypool "^0.2.4"
+    tinyspy "^1.0.0"
     vite "^2.9.12 || ^3.0.0-0"
 
 vm2@^3.9.8:
