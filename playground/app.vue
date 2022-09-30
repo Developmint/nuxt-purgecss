@@ -21,4 +21,13 @@
 :deep(div) {
   color: green;
 }
+
+.safe {
+  color: rebeccapurple;
+}
+/* purgecss start ignore */
+inline {
+  color: salmon;
+}
+/* purgecss end ignore */
 </style>

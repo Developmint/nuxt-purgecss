@@ -1,3 +1,6 @@
 export default defineNuxtConfig({
-  modules: ['nuxt-purgecss']
+  modules: ['nuxt-purgecss'],
+  purgecss: {
+    safelist: ['safe']
+  }
 })

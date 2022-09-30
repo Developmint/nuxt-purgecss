@@ -90,7 +90,7 @@ export default {
 
   purgecss: {
     enabled: true, // Always enable purgecss
-    safelist: ['.my-class'], // Add .my-class to safelist
+    safelist: ['my-class'], // Add my-class token to the safelist (e.g. .my-class)
   }
 }
 ```
