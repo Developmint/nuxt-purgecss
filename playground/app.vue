@@ -1,0 +1,24 @@
+<template>
+  <div>
+    <h1 class="red">
+      Hey!
+    </h1>
+    <div>
+      <p>Green</p>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+:deep(div) {
+  color: green;
+}
+</style>

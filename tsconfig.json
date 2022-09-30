@@ -1,0 +1,3 @@
+{
+  "extends": "./playground/tsconfig.json",
+}
