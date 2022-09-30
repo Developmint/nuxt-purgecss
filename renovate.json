@@ -1,5 +1,28 @@
 {
   "extends": [
-    "@nuxtjs"
+    "github>nuxt/renovate-config-nuxt",
+    "packages:linters",
+    ":labels(dependencies,devops)",
+    ":maintainLockFilesWeekly",
+    ":enableVulnerabilityAlerts",
+    ":automergeLinters",
+    ":automergeTypes",
+    ":automergePatch"
+  ],
+  "rebaseStalePrs": true,
+  "prCreation": "not-pending",
+  "assignees": ["manniL"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["lint"],
+      "groupName": "all lint dependencies",
+      "groupSlug": "all-lint"
+    },
+    {
+      "groupName": "nuxt core",
+      "groupSlug": "nuxt",
+      "matchPackageNames": ["nuxt", "nuxt3"],
+      "matchPackagePatterns": ["^@nuxt/"]
+    }
   ]
 }

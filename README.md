@@ -15,7 +15,7 @@
 * Webpack or PostCSS mode
 * Already comes with mighty default settings
 * Built on top of [purgecss](https://github.com/FullHuman/purgecss)
-* Nuxt 2 (and only Nuxt 2) support
+* Nuxt 3 support (Use v1 for Nuxt2 support please)
 * Fully tested!
 
 ## Setup
