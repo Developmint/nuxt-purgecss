@@ -1,0 +1,11 @@
+.external {
+  color: aqua;
+}
+
+.nuxt-config-class {
+  color: slateblue;
+}
+
+.purged {
+  font-size: 2rem;
+}

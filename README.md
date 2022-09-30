@@ -12,10 +12,9 @@
 ## Features
 
 * Remove unneeded CSS with ease
-* Webpack or PostCSS mode
-* Already comes with mighty default settings
+* Sane default settings
 * Built on top of [purgecss](https://github.com/FullHuman/purgecss)
-* Nuxt 2 (and only Nuxt 2) support
+* Nuxt 2 and Nuxt 3 support (Use v1.0.0 for Nuxt2 support for now)
 * Fully tested!
 
 ## Setup
@@ -26,11 +25,11 @@
 yarn add --dev nuxt-purgecss # or npm install --save-dev nuxt-purgecss
 ```
 
-2. Add `nuxt-purgecss` to the `buildModules` section of `nuxt.config.js`
+2. Add `nuxt-purgecss` to the `modules` section of `nuxt.config.{js,ts}`
 
 ```js
 export default {
-  buildModules: [
+  modules: [
     // Simple usage
     'nuxt-purgecss',
 
@@ -40,159 +39,79 @@ export default {
 }
 ```
 
-:warning: If you are using Nuxt **< v2.9** you have to install the module as a `dependency` (No `--dev` or `--save-dev` flags) and use `modules` section in `nuxt.config.js` instead of `buildModules`.
+:warning: If you are using Nuxt **2**, please use version 1 of the module.
 
 ## Options
 
 ### Defaults
 
-Before diving into the individual attributes, please have a look [at the default settings](https://github.com/Developmint/nuxt-purgecss/blob/master/lib/utils.js) of the module.
+Before diving into the individual attributes, please have a look [at the default settings](https://github.com/Developmint/nuxt-purgecss/blob/main/src/config.ts) of the module.
 
-The defaults will scan all your `.vue` or `.js` components in the common Nuxt folders, as well as checking your `nuxt.config.js` for used classes.
+The defaults will scan all your `.vue`, `.js` and `.ts` files in the common Nuxt folders, as well as checking your `nuxt.config.js` (or `.ts`) for used classes.
 Furthermore, typical classes (like these needed for transitions, the nuxt link ones or those set when using scoped styles) are whitelisted already.
 
 These settings should be a good foundation for a variety of projects.
 
-### Merging defaults
-
-You can define every option either as function or as static value (primitives, objects, arrays, ...).
-if you use a function, the default value will be provided as the first argument.
-
-If you *don't* use a function to define you properties, the module will try to
-merge them with the default values. This can be handy for `paths`, `whitelist` and so on because
-the defaults are quite sensible. If you don't want to have the defaults include, just use a function.
-
 ### Properties in-depth
-
-#### mode
-
-* Type: `String` ('webpack' or 'postcss')
-* Default: `postcss`
-
-Defines the mode, PurgeCSS should be used in.
-
-* Webpack mode can only be used with `build.extractCSS: true`
-* PostCSS mode can only be used with a `build.postcss` **object** (no array) or default settings
 
 #### enabled
 
 * Type: `Boolean`
-* Default: `options.dev === false` (Disabled during `nuxt dev`, enabled otherwise)
+* Default: `!nuxt.options.dev` (Disabled during `nuxt dev`, enabled otherwise)
 
-Enables/Disables the module
+Enables the module when set to `true`.
 
 #### PurgeCSS options
 
 Please read [the PurgeCSS docs](https://www.purgecss.com/configuration) for information about
 PurgeCSS-related information.
 
-Instead of `content` we use `paths` to specify the paths PurgeCSS should look into (explained [here](https://www.purgecss.com/with-webpack#options).
-This applies to **both modes**, not only to `webpack mode`.
-
 ## Examples
 
 ### Default setup
 
 ```js
-//nuxt.config.js
+// nuxt.config.js
 export default {
-  buildModules: [
+  modules: [
     'nuxt-purgecss',
   ]
 }
 ```
 
-### Override a default value
+### Customize options
 
 ```js
 //nuxt.config.js
 export default {
-  buildModules: [
+  modules: [
     'nuxt-purgecss',
   ],
 
-  purgeCSS: {
-   whitelist: () => ['only-this-class'],
+  purgecss: {
+    enabled: true, // Always enable purgecss
+    safelist: ['my-class'], // Add my-class token to the safelist (e.g. .my-class)
   }
 }
 ```
 
-### Append a value to the defaults
+## Caveats
 
-```js
-//nuxt.config.js
-export default {
-  buildModules: [
-    'nuxt-purgecss',
-  ],
+* Don't forget to add paths to pages and components that are not part the common folders (e.g. third party packages)
+* The default generated 500 and 404 pages will be purged by default. Please ensure you have an appropriate error layout
+* Do not use the old `>>>` or `::v-deep` syntax. Instead, go for `:deep`
 
-  purgeCSS: {
-   whitelist: ['defaults-and-this-class'],
-  }
-}
-```
+## Migrating from v1.x
 
-### Override a default value
+:warning: If you use Nuxt 2, you can't update to v2.x (yet?)
 
-```js
-//nuxt.config.js
-export default {
-  buildModules: [
-    'nuxt-purgecss',
-  ],
+1. The webpack mode has been removed, as Nuxt 3 supports Vite and webpack. This way, the logic is unified to use the PostCSS plugin of PurgeCSS. There is no `mode` anymore
+2. The config merging logic of v1 has been removed in favor of using [`defu`](https://github.com/unjs/defu). Instead of using functions, write your values as usual and they will be merged.
+3. PurgeCSS has been bumped from v2.x to v5.x - Please check the current [config options](https://purgecss.com/configuration.html#options)
+4. Change the module key has been changed to just `purgecss`.
+5. In addition to `enabled`, all purgecss configurations can be written directly into the `purgecss` object.
+6. Eventually, check out the playground of the module and the [current defaults]([at the default settings](https://github.com/Developmint/nuxt-purgecss/blob/main/src/config.ts))!
 
-  purgeCSS: {
-   whitelist: (defaultWhitelst) => defaultWhitelst.slice(1),
-  }
-}
-```
-
-### Use custom extractors
-
-Only one extractor can be applied to each file extention.
-If you want to apply a custom extractor to the extensions that the default extractor already covers, you have to override the default extractor. This is only possible with the functional notation.
-
-```js
-//nuxt.config.js
-export default {
-  buildModules: [
-    'nuxt-purgecss',
-  ],
-
-  purgeCSS: {
-    extractors: () => [
-      {
-        extractor(content) {
-          return content.match(/[A-z0-9-:\\/]+/g)
-        },
-        extensions: ['html', 'vue', 'js']
-      },
-      {
-        extractor(content) {
-          return content.match(/[A-z0-9-\\/]+/g)
-        },
-        extensions: ['vue'] // This will not work, because the above extractor is applied to 'vue' already.
-      }
-    ]
-  }
-}
-```
-
-## Migrating from v0.x
-
-1. Review the [**Release Notes**](./CHANGELOG.md) for all changes
-2. Bump to 1.x
-3. Ensure the plugin is running in the right mode
-    * If you used the default mode, you have to add `mode: 'webpack'` to your config.
-    * If you used the `postcss` mode, you can remove the `mode: 'postcss'` line from your config
-    * If you used this module only with the [Nuxt `tailwind` module](https://github.com/nuxt-community/tailwindcss-module), you don't need to do anything
-4. Read about the internal changes of [PurgeCSS 2](https://github.com/fullhuman/purgecss/releases)
-5. Update your extractor and change the syntax from a class to a function (see 4.)
-6. Unused styles from SFCs are now purged. If you don't want that, whitelist them.
-7. The regex for CSS classes changed. This should not be breaking in most cases.
-8. The whitelist now includes nuxt link classes (e.g. `nuxt-link-active`). If you whitelisted these before, you can remove them.
-9. The whitelist now includes move transition classes. If you whitelisted these before, you can remove them.
-10. Test on your staging server (or locally) before deploying!
 
 ## License
 
