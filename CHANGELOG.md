@@ -1,10 +1,27 @@
-# Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.0.0](https://github.com/Developmint/nuxt-purgecss/compare/v1.0.0...v2.0.0) (2022-09-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* nuxt3 support (#125)
+
+### Features
+
+* add nuxt build indicator to whitelist in dev mode ([#85](https://github.com/Developmint/nuxt-purgecss/issues/85)) ([c123fef](https://github.com/Developmint/nuxt-purgecss/commit/c123fefb784c1e16b713f9558a9b13007a9c08f5))
+* nuxt3 support ([#125](https://github.com/Developmint/nuxt-purgecss/issues/125)) ([24b890e](https://github.com/Developmint/nuxt-purgecss/commit/24b890e022eca04c1af29029b63356d0f9d9d2e2))
+
+
+### Bug Fixes
+
+* allow absolute paths ([#96](https://github.com/Developmint/nuxt-purgecss/issues/96)) ([3a5075e](https://github.com/Developmint/nuxt-purgecss/commit/3a5075ea7987644328e34da0babc6ad80fbe0751))
+
 
 ## [1.0.0](https://github.com/Developmint/nuxt-purgecss/compare/v0.2.1...v1.0.0) (2020-04-26)
 
-## Breaking changes
+
+### ⚠ BREAKING CHANGES
 
 * `postcss` mode is the default mode (previously `webpack`)
 * Updated to PurgeCSS 2 and the new extractor syntax (fn instead of class)
