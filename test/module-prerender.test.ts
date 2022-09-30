@@ -24,7 +24,10 @@ describe('Nuxt prerender', () => {
       'utf-8'
     )
 
-    const CONTENT_TO_EXPECT = ['.red', 'div{color:green}', '.safe', '{color:salmon}']
+    const CONTENT_TO_EXPECT = ['.red', 'div{color:green}', '.safe', '{color:salmon}', 'nuxt-config-class', 'external']
     CONTENT_TO_EXPECT.forEach(c => expect(html).toContain(c))
+
+    const CONTENT_TO_PURGE = ['purged']
+    CONTENT_TO_PURGE.forEach(c => expect(html).not.toContain(c))
   })
 })

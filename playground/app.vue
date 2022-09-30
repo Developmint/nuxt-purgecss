@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="external">
     <h1 class="red">
       Hey!
     </h1>
