@@ -36,7 +36,6 @@
     "lint": "eslint --ext .js,.ts,.vue --fix",
     "lint:all": "yarn lint .",
     "release": "yarn test && release-it",
-    "prepublishOnly": "yarn test",
     "test": "yarn vitest run"
   },
   "dependencies": {
