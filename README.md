@@ -14,7 +14,7 @@
 * Remove unneeded CSS with ease
 * Sane default settings
 * Built on top of [purgecss](https://github.com/FullHuman/purgecss)
-* Nuxt 2 and Nuxt 3 support (Use v1.0.0 for Nuxt2 support)
+* Nuxt 2 and Nuxt 3 support (Use v1.0.0 for Nuxt2 support for now)
 * Fully tested!
 
 ## Setup
@@ -45,7 +45,7 @@ export default {
 
 ### Defaults
 
-Before diving into the individual attributes, please have a look [at the default settings](https://github.com/Developmint/nuxt-purgecss/blob/master/lib/utils.js) of the module.
+Before diving into the individual attributes, please have a look [at the default settings](https://github.com/Developmint/nuxt-purgecss/blob/main/src/config.ts) of the module.
 
 The defaults will scan all your `.vue`, `.js` and `.ts` files in the common Nuxt folders, as well as checking your `nuxt.config.js` (or `.ts`) for used classes.
 Furthermore, typical classes (like these needed for transitions, the nuxt link ones or those set when using scoped styles) are whitelisted already.
@@ -59,7 +59,7 @@ These settings should be a good foundation for a variety of projects.
 * Type: `Boolean`
 * Default: `!nuxt.options.dev` (Disabled during `nuxt dev`, enabled otherwise)
 
-Enables the module when set to `true`
+Enables the module when set to `true`.
 
 #### PurgeCSS options
 
@@ -103,7 +103,14 @@ export default {
 
 ## Migrating from v1.x
 
-* TODO
+:warning: If you use Nuxt 2, you can't update to v2.x (yet?)
+
+1. The webpack mode has been removed, as Nuxt 3 supports Vite and webpack. This way, the logic is unified to use the PostCSS plugin of PurgeCSS. There is no `mode` anymore
+2. The config merging logic of v1 has been removed in favor of using [`defu`](https://github.com/unjs/defu). Instead of using functions, write your values as usual and they will be merged.
+3. PurgeCSS has been bumped from v2.x to v5.x - Please check the current [config options](https://purgecss.com/configuration.html#options)
+4. Change the module key has been changed to just `purgecss`.
+5. In addition to `enabled`, all purgecss configurations can be written directly into the `purgecss` object.
+6. Eventually, check out the playground of the module and the [current defaults]([at the default settings](https://github.com/Developmint/nuxt-purgecss/blob/main/src/config.ts))!
 
 
 ## License
