@@ -1,6 +1,6 @@
 
 import { defineNuxtModule } from '@nuxt/kit'
-import { join } from 'pathe'
+import { join, isAbsolute } from 'pathe'
 import consola from 'consola'
 import { DEFAULTS, ModuleOptions } from './config'
 
@@ -27,7 +27,7 @@ export default defineNuxtModule<ModuleOptions>({
       return
     }
 
-    purgecssOptions.content = purgecssOptions.content?.map(p => join(nuxt.options.srcDir, p as string))
+    purgecssOptions.content = purgecssOptions.content?.map(p => isAbsolute(p as string) ? p : join(nuxt.options.srcDir, p as string))
 
     if (!nuxt.options.postcss.plugins || !Object.keys(nuxt.options.postcss.plugins).length) {
       nuxt.options.postcss.plugins = {}
