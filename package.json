@@ -55,7 +55,7 @@
     "eslint-config-prettier": "8.5.0",
     "husky": "8.0.1",
     "lint-staged": "13.0.3",
-    "nuxt": "npm:nuxt3@3.0.0-rc.12-27746784.92ff066",
+    "nuxt": "npm:nuxt3@3.0.0-rc.12-27752119.1477d37",
     "release-it": "15.4.3",
     "vitest": "^0.21.1"
   },
