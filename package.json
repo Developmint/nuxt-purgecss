@@ -49,7 +49,7 @@
     "@nuxt/module-builder": "latest",
     "@nuxt/test-utils": "3.2.0",
     "@nuxtjs/eslint-config-typescript": "11.0.0",
-    "@release-it/conventional-changelog": "5.1.1",
+    "@release-it/conventional-changelog": "6.0.0",
     "c8": "^7.13.0",
     "eslint": "8.35.0",
     "eslint-config-prettier": "8.6.0",
