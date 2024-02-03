@@ -32,6 +32,7 @@ export const DEFAULTS: ModuleOptions = {
     // New Vue3 selectors
     /:slotted/,
     /:deep/,
-    /:global/
+    /:global/,
+    /nuxt-devtools-.*/
   ]
 }
