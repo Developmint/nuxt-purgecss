@@ -22,7 +22,7 @@
 1. Add `nuxt-purgecss` dependency to your project
 
 ```bash
-yarn add --dev nuxt-purgecss # or npm install --save-dev nuxt-purgecss
+npx nuxi@latest module add purgecss
 ```
 
 2. Add `nuxt-purgecss` to the `modules` section of `nuxt.config.{js,ts}`
