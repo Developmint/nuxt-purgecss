@@ -40,14 +40,14 @@
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
-    "@nuxt/kit": "^3.2.0",
+    "@nuxt/kit": "^3.18.1",
     "consola": "^2.15.3",
     "glob-all": "^3.3.1",
     "purgecss": "^5.0.0"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
-    "@nuxt/test-utils": "3.2.0",
+    "@nuxt/test-utils": "3.19.2",
     "@nuxtjs/eslint-config-typescript": "11.0.0",
     "@release-it/conventional-changelog": "5.1.1",
     "c8": "^7.13.0",
