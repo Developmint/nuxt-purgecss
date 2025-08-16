@@ -43,7 +43,7 @@
     "@nuxt/kit": "^3.2.0",
     "consola": "^2.15.3",
     "glob-all": "^3.3.1",
-    "purgecss": "^5.0.0"
+    "purgecss": "^7.0.2"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
