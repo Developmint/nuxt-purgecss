@@ -13,7 +13,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: 'nuxt-purgecss',
     configKey: 'purgecss',
     compatibility: {
-      nuxt: '^3.0.0-rc.11'
+      nuxt: '>=3.0.0-rc.11'
     }
   },
   defaults: (nuxt) => {
