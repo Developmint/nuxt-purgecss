@@ -38,9 +38,12 @@
     "release": "yarn test && release-it",
     "test": "yarn vitest run"
   },
+  "peerDependencies": {
+    "nuxt": "^3.0.0 || ^4.0.0"
+  },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
-    "@nuxt/kit": "^3.2.0",
+    "@nuxt/kit": "^3.2.0 || ^4.0.0",
     "consola": "^2.15.3",
     "glob-all": "^3.3.1",
     "purgecss": "^5.0.0"
